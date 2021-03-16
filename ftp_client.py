@@ -3,8 +3,8 @@ import socket
 import sys
 import ftplib
 
-# HOST = '127.0.0.1'  # The server's hostname or IP address
-# PORT = 65432        # The port used by the server
+HOST = 'HELLO'  # The server's hostname or IP address
+PORT = 0       # The port used by the server
 
 status = 1
 
@@ -12,26 +12,61 @@ status = 1
 #     Host = arg1
 #     PORT = arg2
 
+host = ""
+port = 0
 
-while(status == 1):
 
-    user_input = input("> ")
+user_input = input("> ")
+ar1 = ""
+ar2 = ""
+ar3 = ""
 
-    if (user_input == "CONNECT"):
-        host = sys.argv[1]
-        port = sys.argv[2]
-        ftplib.connect(host, port)
+
+counter = 1
+spacesCounter = 0;
+for i in range(len(user_input)):
+    if(user_input[i] == " "):
+        spacesCounter = spacesCounter + 1
+if(spacesCounter == 2):
+    for i in range(len(user_input)):
+        if(user_input[i] != " " and counter == 1):
+            ar1 = ar1 + user_input[i]
+        if(user_input[i] != " " and counter == 2):
+            ar2 = ar2 + user_input[i]
+        if(user_input[i] != " " and counter == 3):
+            ar3 = ar3 + user_input[i]
+        if(user_input[i] == " "):
+            counter = counter + 1
+    ar3 = int(ar3)
+
+if (ar1 == "CONNECT" or ar1 == "C" or ar1 == "Connect" or ar1 == "q"):
+    HOST = ar2
+    PORT = ar3
+    with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
+        s.connect((HOST, PORT))
+    print("You have connected")
+    status = 1;
+    while(status == 1):
+        print("What would you like to do? You can List, Retrieve, Store, or Quit")
+
+        op = input("> ")
+
+        if(op == "Quit" or op == "Q" or op == "quit" or op == "q"):
+            status = 0
+            print("Disconnected")
+else:
+    print("Error in connecting")
+    
 
     # HOST = '127.0.0.1'  # The server's hostname or IP address
     # PORT = 65432        # The port used by the server
 
-   with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
-       s.connect((HOST, PORT))
-       val = input("Send or quit?")
-       if(val == "Send" or val == "s"):
-           s.sendall(b'1')
-           data = s.recv(1024)
-       if(val == "Quit" or val == "q"):
-           status = 0
-
-   print('Received', repr(data))
+    #with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
+    #    s.connect((HOST, PORT))
+    #    val = input("Send or quit?")
+    #    if(val == "Send" or val == "s"):
+    #        s.sendall(b'1')
+    #        data = s.recv(1024)
+    #    if(val == "Quit" or val == "q"):
+    #        status = 0
+    #print('Received', repr(data))
