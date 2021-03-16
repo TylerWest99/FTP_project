@@ -1,9 +1,9 @@
 #ftp_client
 import socket
 import sys
-import ftplib
+import os
 
-HOST = 'HELLO'  # The server's hostname or IP address
+HOST = '123456789'  # The server's hostname or IP address
 PORT = 0       # The port used by the server
 
 status = 1
@@ -39,7 +39,7 @@ if(spacesCounter == 2):
             counter = counter + 1
     ar3 = int(ar3)
 
-if (ar1 == "CONNECT" or ar1 == "C" or ar1 == "Connect" or ar1 == "q"):
+if (ar1 == "connect" or ar1 == "CONNECT" or ar1 == "C" or ar1 == "Connect" or ar1 == "c"):
     HOST = ar2
     PORT = ar3
     with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
@@ -47,19 +47,24 @@ if (ar1 == "CONNECT" or ar1 == "C" or ar1 == "Connect" or ar1 == "q"):
     print("You have connected")
     status = 1;
     while(status == 1):
+        print()
         print("What would you like to do? You can List, Retrieve, Store, or Quit")
 
         op = input("> ")
 
-        if(op == "Quit" or op == "Q" or op == "quit" or op == "q"):
+        if(op == "LIST" or op == "List" or op == "list" or op == "L" or op == "l"):
+            print("The files in the current directory are...")
+            print()
+            # prints the files in the directory
+            list = os.listdir('.')
+            for i in list:
+                print(i)
+
+        if(op == "QUIT" or op == "Quit" or op == "quit" or op == "Q" or op == "q"):
             status = 0
             print("Disconnected")
 else:
     print("Error in connecting")
-    
-
-    # HOST = '127.0.0.1'  # The server's hostname or IP address
-    # PORT = 65432        # The port used by the server
 
     #with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
     #    s.connect((HOST, PORT))
