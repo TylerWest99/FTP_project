@@ -2,7 +2,7 @@
 
 from socket import *
 import sys
-from os import *
+import os
 import time
 
 status = 1
@@ -73,7 +73,7 @@ if (ar1.strip().upper() == "CONNECT" or ar1.strip().upper() == "C"):
                 s.sendall(bytes("S", 'utf-8'))
                 fileName = op2[1]
                 s.sendall(bytes(op2[1], 'utf-8'))
-                if(path.isfile(fileName)):
+                if(os.path.isfile(fileName)):
                     with open(fileName, 'rb') as f:
                         bytesSent = f.read()
                         bytesSent = bytesSent.decode()
@@ -99,5 +99,9 @@ if (ar1.strip().upper() == "CONNECT" or ar1.strip().upper() == "C"):
                 status = 0
                 s.close()
                 print("Successfully disconnected from the server")
+            # else:
+            #     print("""Error: %s is not a recognized command.\n
+            #     You may use CONNECT(C), LIST(L), RETRIEVE(R),
+            #     STORE(S), or QUIT(Q).\n""" % (op))
 else:
     print("Error in initial connection")
