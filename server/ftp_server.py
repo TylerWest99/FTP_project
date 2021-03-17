@@ -2,15 +2,17 @@
 
 from socket import *
 import sys
-import os
+from os import *
 status = 1
+
+buf_size = 1024
 
 HOST = 'localhost'
 PORT = 1024
 
 def listFunc(s):
     # gets a list of files in the directory
-    list = os.listdir('.')
+    list = listdir('.')
     newList = ""
     for i in list:
         newList = newList + i + " "
@@ -25,14 +27,16 @@ while(status == 1):
         s.listen()
         connection, address = s.accept()
         with connection:
-            print('Connection initiated!')
-            while status == 1:
-                data = connection.recv(1024)
-                #print(data)
+            print('Connection initiated with ', str(address))
 
-                #close server
-                if(data.decode() == "q"):
-                    quit()
+            while status == 1:
+                data = connection.recv(buf_size)
+
+                close server
+                if(data.decode() == 'Q'):
+                    s.close()
+                    print("Shutting down...")
+                    break
 
                 # list function
                 if(data.decode() == 'L'):
@@ -41,19 +45,17 @@ while(status == 1):
 
                 # store function
                 if(data.decode() == 'S'):
-                    #print('S')
-                    fileNameBytes = connection.recv(1024)
+                    fileNameBytes = connection.recv(buf_size)
                     fileName = fileNameBytes.decode()
                     f = open('new_'+fileName,'wb')
-                    data = connection.recv(1024)
+                    data = connection.recv(buf_size)
                     f.write(data)
                     f.close()
 
                 # retrieve function
                 if(data.decode() == 'R'):
-                    #print('R')
-                    file = connection.recv(1024)
-                    if(os.path.isfile(file)):
+                    file = connection.recv(buf_size)
+                    if(path.isfile(file)):
                         with open(file, 'rb') as f:
                             bytesSent = f.read()
                             connection.sendall(bytesSent)
@@ -63,4 +65,3 @@ while(status == 1):
 
                 if not data:
                     break
-                
