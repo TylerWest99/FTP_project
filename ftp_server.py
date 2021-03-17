@@ -1,22 +1,22 @@
 #ftp_server
 
-import socket
+from socket import *
 import sys
-status = 1;
+status = 1
 
-HOST = '127.0.0.1'  # Standard loopback interface address (localhost)
-PORT = 65432        # Port to listen on (non-privileged ports are > 1023)
+HOST = 'localhost'
+PORT = 1024
 
 while(status == 1):
 
-    with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
+    with socket(AF_INET, SOCK_STREAM) as s:
         s.bind((HOST, PORT))
         s.listen()
-        conn, addr = s.accept()
-        with conn:
-            print('Connected by', addr)
+        connection, address = s.accept()
+        with connection:
+            print('Connection initiated to (host, port): ', address)
             while True:
-                data = conn.recv(1024)
+                data = connection.recv(1024)
                 if not data:
                     break
-                conn.sendall(data)
+                connection.sendall(data)
