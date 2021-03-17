@@ -2,7 +2,7 @@
 
 from socket import *
 import sys
-from os import *
+import os
 status = 1
 
 buf_size = 1024
@@ -12,7 +12,7 @@ PORT = 1024
 
 def listFunc(s):
     # gets a list of files in the directory
-    list = listdir('.')
+    list = os.listdir('.')
     newList = ""
     for i in list:
         newList = newList + i + " "
@@ -55,7 +55,7 @@ while(status == 1):
                 # retrieve function
                 if(data.decode() == 'R'):
                     file = connection.recv(buf_size)
-                    if(path.isfile(file)):
+                    if(os.path.isfile(file)):
                         with open(file, 'rb') as f:
                             bytesSent = f.read()
                             connection.sendall(bytesSent)
