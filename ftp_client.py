@@ -48,6 +48,7 @@ if (ar1.strip().upper() == "CONNECT" or ar1.strip().upper() == "C"):
             print()
             print("What would you like to do? You can List, Retrieve, Store, or Quit")
 
+            # operation code
             op = input("> ")
 
             # List function
@@ -61,8 +62,15 @@ if (ar1.strip().upper() == "CONNECT" or ar1.strip().upper() == "C"):
                 list = list.split()
                 for i in list:
                     print(i)
- 
                 print("_________________________________________\n")
+
+            # store function
+            if(op.strip().upper() == "STORE" or op.strip().upper() == "S"):
+                s.sendall(bytes("S", 'utf-8'))
+
+            # retrieve function
+            if(op.strip().upper() == "Retrieve" or op.strip().upper() == "R"):
+                s.sendall(bytes("R", 'utf-8'))
 
             # Quit function
             if(op.strip().upper() == "QUIT" or op.strip().upper() == "Q"):

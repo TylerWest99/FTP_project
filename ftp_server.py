@@ -30,11 +30,17 @@ while(status == 1):
                 data = connection.recv(1024)
                 print(data)
 
-                # list func support
+                # list function
                 list = listFunc(s)
                 # logic for list
                 if(data.decode() == 'L'):
                     connection.sendall(bytes(list, 'utf-8'))
+
+                # store function
+
+                # retrieve function
+
+
                 if not data:
                     break
                 #connection.sendall(bytes("NOPE!", 'utf-8'))
