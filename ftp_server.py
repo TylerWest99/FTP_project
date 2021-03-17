@@ -36,9 +36,11 @@ while(status == 1):
                     connection.sendall(bytes(list, 'utf-8'))
 
                 # store function
-
+                if(data.decode() == 'S'):
+                    print('S')
                 # retrieve function
-
+                if(data.decode() == 'R'):
+                    pritn('R')
 
                 if not data:
                     break

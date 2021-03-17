@@ -50,6 +50,7 @@ if (ar1.strip().upper() == "CONNECT" or ar1.strip().upper() == "C"):
 
             # operation code
             op = input("> ")
+            op2 = op.split()
 
             # List function
             if(op.strip().upper() == "LIST" or op.strip().upper() == "L"):
@@ -65,11 +66,13 @@ if (ar1.strip().upper() == "CONNECT" or ar1.strip().upper() == "C"):
                 print("_________________________________________\n")
 
             # store function
-            if(op.strip().upper() == "STORE" or op.strip().upper() == "S"):
+            if(op2[0].upper() == "STORE" or op2[0].upper() == "S"):
+                print('S')
                 s.sendall(bytes("S", 'utf-8'))
 
             # retrieve function
-            if(op.strip().upper() == "Retrieve" or op.strip().upper() == "R"):
+            if(op2[0].upper() == "Retrieve" or op2[0].upper() == "R"):
+                print("R")
                 s.sendall(bytes("R", 'utf-8'))
 
             # Quit function
