@@ -3,6 +3,7 @@
 from socket import *
 import sys
 import os
+import time
 
 status = 1
 
@@ -32,6 +33,7 @@ if(spacesCounter == 2):
             counter = counter + 1
     ar3 = int(ar3)
 
+# Connect function
 if (ar1.strip().upper() == "CONNECT" or ar1.strip().upper() == "C"):
     HOST = ar2
     PORT = ar3
@@ -41,27 +43,27 @@ if (ar1.strip().upper() == "CONNECT" or ar1.strip().upper() == "C"):
         print("You have connected to\nHOST: %s\nPORT: %s" % (HOST, PORT))
         status = 1
 
-    while(status == 1):
-        print()
-        print("What would you like to do? You can List, Retrieve, Store, or Quit")
+        # Loop once connected
+        while(status == 1):
+            print()
+            print("What would you like to do? You can List, Retrieve, Store, or Quit")
 
-        op = input("> ")
+            op = input("> ")
 
-        if(op.strip().upper() == "LIST" or op.strip().upper() == "L"):
-            print("The files in the current directory are...\n")
-            print("_________________________________________\n")
-            # prints the files in the directory
-            list = os.listdir('.')
-            count = 0
-            for i in list:
-                print(i)
-                count += 1
-            print("Number of files found: ", count)
-            print("_________________________________________\n")
+            # List function
+            if(op.strip().upper() == "LIST" or op.strip().upper() == "L"):
+                s.sendall(bytes("L", 'utf-8'))
+                list = s.recv(1024)
+                print("The files in the current directory are...\n")
+                print("_________________________________________\n")
+                # prints the files in the directory
+                print(list.decode())
+                print("_________________________________________\n")
 
-        if(op.strip().upper() == "QUIT" or op.strip().upper() == "Q"):
-            status = 0
-            s.close()
-            print("Disconnected")
+            # Quit function
+            if(op.strip().upper() == "QUIT" or op.strip().upper() == "Q"):
+                status = 0
+                s.close()
+                print("Disconnected")
 else:
-    print("Error in connecting")
+    print("Error in initial connection")

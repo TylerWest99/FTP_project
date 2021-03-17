@@ -2,21 +2,38 @@
 
 from socket import *
 import sys
+import os
 status = 1
 
 HOST = 'localhost'
 PORT = 1024
 
+def listFunc(s):
+    # gets a list of files in the directory
+    list = os.listdir('.')
+    newList = ""
+    for i in list:
+        newList = newList + i + " "
+    print(newList)
+    return newList
+
 while(status == 1):
 
     with socket(AF_INET, SOCK_STREAM) as s:
+        print("Server started!")
         s.bind((HOST, PORT))
         s.listen()
         connection, address = s.accept()
         with connection:
-            print('Connection initiated to (host, port): ', address)
+            print('Connection initiated!')
             while True:
+                # list func support
+                list = listFunc(s)
                 data = connection.recv(1024)
+                print(data)
+                # logic for list
+                if(data.decode() == 'L'):
+                    connection.sendall(bytes(list, 'utf-8'))
                 if not data:
                     break
-                connection.sendall(data)
+                connection.sendall(bytes("NOPE!", 'utf-8'))
