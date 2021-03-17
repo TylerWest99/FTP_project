@@ -31,9 +31,8 @@ while(status == 1):
                 print(data)
 
                 # list function
-                list = listFunc(s)
-                # logic for list
                 if(data.decode() == 'L'):
+                    list = listFunc(s)
                     connection.sendall(bytes(list, 'utf-8'))
 
                 # store function
