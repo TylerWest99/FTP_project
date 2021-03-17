@@ -67,10 +67,22 @@ if (ar1.strip().upper() == "CONNECT" or ar1.strip().upper() == "C"):
 
             # store function
             if(op2[0].upper() == "STORE" or op2[0].upper() == "S"):
+                print('file sent')
                 s.sendall(bytes("S", 'utf-8'))
+                fileName = op2[1]
+                s.sendall(bytes(op2[1], 'utf-8'))
+                if(os.path.isfile(fileName)):
+                    with open(fileName, 'rb') as f:
+                        bytesSent = f.read()
+                        bytesSent = bytesSent.decode()
+                        s.sendall(bytes(bytesSent, 'utf-8'))
+                        f.close()
+                else:
+                    s.send(bytes("Error", 'utf-8'))
 
             # retrieve function
             if(op2[0].upper() == "Retrieve" or op2[0].upper() == "R"):
+                print('file recieved')
                 s.sendall(bytes("R", 'utf-8'))
                 fileName = op2[1]
                 s.send(bytes(fileName, 'utf-8'))

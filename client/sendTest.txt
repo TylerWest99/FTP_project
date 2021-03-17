@@ -1,0 +1,1 @@
+This tests the send function from client
