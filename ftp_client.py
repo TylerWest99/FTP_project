@@ -54,10 +54,14 @@ if (ar1.strip().upper() == "CONNECT" or ar1.strip().upper() == "C"):
             if(op.strip().upper() == "LIST" or op.strip().upper() == "L"):
                 s.sendall(bytes("L", 'utf-8'))
                 list = s.recv(1024)
+                list = list.decode();
                 print("The files in the current directory are...\n")
                 print("_________________________________________\n")
                 # prints the files in the directory
-                print(list.decode())
+                list = list.split()
+                for i in list:
+                    print(i)
+ 
                 print("_________________________________________\n")
 
             # Quit function

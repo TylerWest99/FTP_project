@@ -27,13 +27,14 @@ while(status == 1):
         with connection:
             print('Connection initiated!')
             while True:
-                # list func support
-                list = listFunc(s)
                 data = connection.recv(1024)
                 print(data)
+
+                # list func support
+                list = listFunc(s)
                 # logic for list
                 if(data.decode() == 'L'):
                     connection.sendall(bytes(list, 'utf-8'))
                 if not data:
                     break
-                connection.sendall(bytes("NOPE!", 'utf-8'))
+                #connection.sendall(bytes("NOPE!", 'utf-8'))
