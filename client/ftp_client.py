@@ -67,13 +67,17 @@ if (ar1.strip().upper() == "CONNECT" or ar1.strip().upper() == "C"):
 
             # store function
             if(op2[0].upper() == "STORE" or op2[0].upper() == "S"):
-                print('S')
                 s.sendall(bytes("S", 'utf-8'))
 
             # retrieve function
             if(op2[0].upper() == "Retrieve" or op2[0].upper() == "R"):
-                print("R")
                 s.sendall(bytes("R", 'utf-8'))
+                fileName = op2[1]
+                s.send(bytes(fileName, 'utf-8'))
+                f = open('new_'+fileName,'wb')
+                data = s.recv(1024)
+                f.write(data)
+                f.close()                
 
             # Quit function
             if(op.strip().upper() == "QUIT" or op.strip().upper() == "Q"):

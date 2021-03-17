@@ -17,6 +17,16 @@ def listFunc(s):
     print(newList)
     return newList
 
+def retr(s):
+    file = s.recv(1024)
+    if(os.path.isfile(file)):
+        with open(file, 'rb') as f:
+            bytesSent = f.read()
+            s.sendall(bytesSent)
+    else:
+        s.send("Error")
+
+
 while(status == 1):
 
     with socket(AF_INET, SOCK_STREAM) as s:
@@ -28,7 +38,7 @@ while(status == 1):
             print('Connection initiated!')
             while True:
                 data = connection.recv(1024)
-                print(data)
+                #print(data)
 
                 # list function
                 if(data.decode() == 'L'):
@@ -38,10 +48,19 @@ while(status == 1):
                 # store function
                 if(data.decode() == 'S'):
                     print('S')
+
                 # retrieve function
                 if(data.decode() == 'R'):
-                    pritn('R')
+                    print('R')
+                    file = connection.recv(1024)
+                    if(os.path.isfile(file)):
+                        with open(file, 'rb') as f:
+                            bytesSent = f.read()
+                            connection.sendall(bytesSent)
+                            f.close()
+                    else:
+                        connection.send("Error")
 
                 if not data:
                     break
-                #connection.sendall(bytes("NOPE!", 'utf-8'))
+                
