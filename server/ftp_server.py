@@ -32,7 +32,7 @@ while(status == 1):
             while status == 1:
                 data = connection.recv(buf_size)
 
-                close server
+                # close server
                 if(data.decode() == 'Q'):
                     s.close()
                     print("Shutting down...")
