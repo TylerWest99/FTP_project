@@ -36,7 +36,7 @@ while(status == 1):
                 if(data.decode() == 'Q'):
                     s.close()
                     print("Shutting down...")
-                    break
+                    quit()
 
                 # list function
                 if(data.decode() == 'L'):
