@@ -26,9 +26,13 @@ while(status == 1):
         connection, address = s.accept()
         with connection:
             print('Connection initiated!')
-            while True:
+            while status == 1:
                 data = connection.recv(1024)
                 #print(data)
+
+                #close server
+                if(data.decode() == "q"):
+                    quit()
 
                 # list function
                 if(data.decode() == 'L'):

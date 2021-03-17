@@ -93,6 +93,7 @@ if (ar1.strip().upper() == "CONNECT" or ar1.strip().upper() == "C"):
 
             # Quit function
             if(op.strip().upper() == "QUIT" or op.strip().upper() == "Q"):
+                s.sendall(bytes("q", 'utf-8'))
                 status = 0
                 s.close()
                 print("Disconnected")
