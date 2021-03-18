@@ -34,9 +34,8 @@ while(status == 1):
 
                 # close server
                 if(data.decode() == 'Q'):
-                    s.close()
                     print("Shutting down...")
-                    quit()
+                    status == 0
 
                 # list function
                 if(data.decode() == 'L'):
