@@ -9,9 +9,6 @@ status = 1
 
 buf_size = 1024
 
-host = ""
-port = 0
-
 user_input = input("> ")
 ar1 = ""
 ar2 = ""
@@ -83,7 +80,7 @@ if (ar1.strip().upper() == "CONNECT" or ar1.strip().upper() == "C"):
                     s.send(bytes("Error", 'utf-8'))
 
             # retrieve function
-            if(op2[0].upper() == "Retrieve" or op2[0].upper() == "R"):
+            if(op2[0].upper() == "RETRIEVE" or op2[0].upper() == "R"):
                 print('file recieved')
                 s.sendall(bytes("R", 'utf-8'))
                 fileName = op2[1]
@@ -99,9 +96,5 @@ if (ar1.strip().upper() == "CONNECT" or ar1.strip().upper() == "C"):
                 status = 0
                 s.close()
                 print("Successfully disconnected from the server")
-            # else:
-            #     print("""Error: %s is not a recognized command.\n
-            #     You may use CONNECT(C), LIST(L), RETRIEVE(R),
-            #     STORE(S), or QUIT(Q).\n""" % (op))
 else:
     print("Error in initial connection")
